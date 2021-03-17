@@ -3,17 +3,17 @@ import ArgumentParserFactory
 import fileUtil
 import configUtil
 
-config = configUtil.getConfig()
-args = ArgumentParserFactory.create(config)
-topicName = configUtil.getTopicName(args, config)
+if __name__ == '__main__':
+    config = configUtil.getConfig()
+    args = ArgumentParserFactory.create(config)
+    topicName = configUtil.getTopicName(args, config)
 
-print("開始爬取討論區："+ "【" + topicName + "】!!")
+    print("開始爬取討論區：" + "【" + topicName + "】!!")
 
-sortField = "lastReplyTime" if args.sort == "t" else "replayCount"
-topics = Crawler.getTopicsBy(args.code, int(args.page), sortField, bool(args.desc))
+    sortField = "lastReplyTime" if args.sort == "t" else "replayCount"
+    topics = Crawler.getTopicsBy(args.code, int(args.page), sortField, bool(args.desc))
 
-print("爬取討論區："+ "【" + topicName + "】" + "共" + str(args.page) + "頁" + "完成!!")
+    print("爬取討論區：" + "【" + topicName + "】" + "共" + str(args.page) + "頁" + "完成!!")
 
-fileName = fileUtil.getFileName(args, config)
-fileUtil.saveJson(topics, fileName)
-
+    fileName = fileUtil.getFileName(args, config)
+    fileUtil.saveJson(topics, fileName)
